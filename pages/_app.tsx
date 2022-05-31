@@ -14,7 +14,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>SKILL CHECKER</title>
-        <meta name='description' content='例のあれ' />
+        <meta property='og:url' content='https://skill-checker.vercel.app/' />
+        <meta property='og:title' content='SKILL CHECKER' />
+        <meta property='description' content='例のあれ' />
+        <meta property='og:site_name' content='SKILL CHECKER' />
+        <meta property='og:image' content='ogp.png' />
       </Head>
       <Component {...pageProps} />;
     </>

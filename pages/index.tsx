@@ -63,6 +63,7 @@ const Home: NextPage = () => {
   let timer: NodeJS.Timeout;
 
   const start = () => {
+    console.log('run start');
     setState('start');
     const now = new Date();
     setTime(now);
@@ -89,7 +90,7 @@ const Home: NextPage = () => {
     const k = (1200 * 3) / 4 / 270; // 1度あたりのミリ秒数
     const greatZone = k * nextProblem.arg;
     console.log('scoreTime', scoreTime);
-    console.log('greatZone', greatZone);
+    console.log('checkZone', greatZone + ' - ' + greatZone + k * 40);
 
     if (greatZone <= scoreTime && scoreTime < greatZone + k * 10) {
       setResult('GREAT✨');

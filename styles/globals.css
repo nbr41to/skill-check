@@ -22,7 +22,7 @@ a {
 /* custom */
 @layer utilities {
   .spin {
-    animation: rotate 1.2s linear forwards;
+    animation: rotate 1.5s linear forwards;
   }
   .stop {
     animation-play-state: paused;

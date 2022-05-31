@@ -16,8 +16,7 @@ const createProblem = () => {
   const screenY = Math.floor(Math.random() * (window.innerHeight - 300));
 
   /* ボタンを押すタイミングの位置（100） */
-  const arg = Math.floor(Math.random() * 200);
-  +30;
+  const arg = Math.floor(Math.random() * 200) + 30;
 
   return {
     screenX,
@@ -62,6 +61,23 @@ const Home: NextPage = () => {
 
   let timer: NodeJS.Timeout;
 
+  const timeOver = () => {
+    console.log('timeOver state', state);
+    if (state !== 'start') return;
+    setState('stop');
+    clearTimeout(timer);
+    setTimeout(() => {
+      setState('ready');
+      setResult('');
+    }, 2000);
+
+    setResult('FAILED☠️');
+    setScore((prev) => ({
+      ...prev,
+      failed: prev.failed + 1,
+    }));
+  };
+
   const start = () => {
     console.log('run start');
     setState('start');
@@ -70,37 +86,42 @@ const Home: NextPage = () => {
 
     clearTimeout(timer);
     timer = setTimeout(() => {
-      setState('ready');
-      setResult('');
-    }, 1200);
+      timeOver();
+      // setState('ready');
+      // setResult('');
+    }, 1500);
   };
 
   const stop = () => {
+    console.log(state);
+    if (state !== 'start') return;
     setState('stop');
     const now = new Date();
-    const scoreTime = Number(now) - Number(time) - 1200 / 4;
+    const scoreTime = Number(now) - Number(time) - 1500 / 4;
     setTime(now);
 
     clearTimeout(timer);
     setTimeout(() => {
       setState('ready');
       setResult('');
-    }, 1800);
+    }, 2000);
 
-    const k = (1200 * 3) / 4 / 270; // 1度あたりのミリ秒数
+    const k = (1500 * 3) / 4 / 270; // 1度あたりのミリ秒数
     const greatZone = k * nextProblem.arg;
-    console.log('scoreTime', scoreTime);
-    console.log('checkZone', greatZone + ' - ' + greatZone + k * 40);
+    console.log('checkZone', greatZone + ' - ' + (greatZone + k * 40));
+    console.log(greatZone + ' - ' + (greatZone + k * 10) + ' -> great');
+    console.log(greatZone + k * 10 + ' - ' + (greatZone + k * 40) + ' -> good');
+    console.log('scoreTime:', scoreTime);
 
-    if (greatZone <= scoreTime && scoreTime < greatZone + k * 10) {
+    if (greatZone <= scoreTime && scoreTime <= greatZone + k * 10) {
       setResult('GREAT✨');
       setScore((prev) => ({
         ...prev,
         great: prev.great + 1,
       }));
     } else if (
-      greatZone + k * 10 <= scoreTime &&
-      scoreTime < greatZone + k * 30
+      greatZone + k * 10 < scoreTime &&
+      scoreTime <= greatZone + k * 40
     ) {
       setResult('GOOD👍');
       setScore((prev) => ({

@@ -9,7 +9,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       container.focus();
     }
   }, []);
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />;
+    </>
+  );
 }
 
 export default MyApp;

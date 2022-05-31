@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,23 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* custom */
+@layer utilities {
+  .spin {
+    animation: rotate 1.2s linear forwards;
+  }
+  .stop {
+    animation-play-state: paused;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(-90deg);
+    }
+    100% {
+      transform: rotate(270deg);
+    }
+  }
 }

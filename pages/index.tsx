@@ -53,7 +53,7 @@ const Home: NextPage = () => {
     const problem = createProblem();
     setNextProblem(problem);
     // const timeTo = Math.random() * 30 * 1000 + 10000; // 10~30秒
-    const timeTo = Math.random() * 3 * 1000 + 1000; // 1~3秒
+    const timeTo = Math.random() * 4 * 1000 + 2000; // 1~4秒
 
     setTimeout(() => {
       start();
